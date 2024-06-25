@@ -113,3 +113,12 @@ plugins:
         trigger_interval: 5
         trigger_timeout: 60s
 ```
+
+## Plugins
+
+Add your plugin to this list once you merge it into the plugin folder.
+
+- aws-get-caller-identity: calls aws get caller identity and checks if the response code is 200
+- ls-file-exists: checks to see if a file was placed successfully
+- cert-expiry-check: checks the expiry of a certificate
+- file-permissions-check: matches the user given permissions to a current file 
