@@ -1,5 +1,5 @@
 # hypothecary
-Automate runbook tasks in your cluster before you're paged
+A standardized runbook that can automate runbook tasks in your cluster before you're paged and can be shared with other teams.
 
 TLDR: Easy-to-install k8s job to run system debugging hypotheses
 
