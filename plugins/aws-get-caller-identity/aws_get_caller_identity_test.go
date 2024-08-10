@@ -1,0 +1,1 @@
+package aws_get_caller_identity
