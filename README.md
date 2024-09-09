@@ -15,7 +15,9 @@ Ultimately, debugging is about validating hypotheses and these commands are effe
 
 Runbooks (or playbooks if you're at Google) are filled with these commands, but I find the process of following runbooks cumbersome, error-prone and frankly annoying when I get paged at 4 in the morning. Sometimes, the runbooks are wrong, missing context, or simply not updated and I simply can't rely on them as a source of truth. Fixing this is a culture/process problem but stocks vest faster than culture changes.
 
-However, I think container logs are a great source of truth. So why not run these commands directly in the container to run validating scripts with my dependencies, check the expiry of the certificate, etc. before I even get paged.
+So I propose standardizing runbooks with pre-configured scripts instead of open form text. 
+
+I think container logs are a great source of truth. So why not run these commands directly in the container to run validating scripts with my dependencies, check the expiry of the certificate, etc. before I even get paged.
 This way, when I actually get paged, I'm not sitting around waiting for an approval or parsing through logs/metrics/traces in the middle of night and I can figure out the source of the issue faster.
 
 In that spirit, I offer an alternative: why not have a pre-configured set of scripts that run when the readiness/liveness/startup probes break and output the responses to your preferred logging sink, e.g. Splunk.
@@ -27,6 +29,8 @@ For example, running a command to test if you can connect to AWS tells you:
 - NAT gateway/outbound proxy is working normally
 - AWS is not down
 - more stuff in between
+
+Running another command to connect to Digicert shares the above path and only differs at the leaf. We can show by overlapping the 
 
 As Pranav Mistry says: `we as humans are not interested in technology [or processes], we're interested in information.`
 In that mode of thinking, I have a shameless plug: reach out if you'd like to go a step forward to use these hypotheses to automagically root cause incidents and create dashboards that combine fragmented information from metrics, logs and traces' backends.

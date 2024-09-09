@@ -10,13 +10,11 @@ func NewGetCallerIdentityAWS() plugins.IPlugin {
 }
 
 func (a *GetCallerIdentityAWS) Name() string {
-	//TODO implement me
-	panic("implement me")
+	return "aws-get-caller-identity"
 }
 
 func (a *GetCallerIdentityAWS) Run() string {
-	//TODO implement me
-	panic("implement me")
+	return "ran code"
 }
 
 func (a *GetCallerIdentityAWS) ParseOutput() string {
