@@ -1,5 +1,5 @@
 # hypothecary
-A standardized runbook that can automate runbook tasks in your cluster before you're paged and can be shared with other teams.
+Standardized runbook that helps engineers automate runbook tasks in your cluster before engineers are paged
 
 TLDR: Easy-to-install k8s job to run system debugging hypotheses
 
@@ -20,11 +20,11 @@ So I propose standardizing runbooks with pre-configured scripts instead of open 
 I think container logs are a great source of truth. So why not run these commands directly in the container to run validating scripts with my dependencies, check the expiry of the certificate, etc. before I even get paged.
 This way, when I actually get paged, I'm not sitting around waiting for an approval or parsing through logs/metrics/traces in the middle of night and I can figure out the source of the issue faster.
 
-In that spirit, I offer an alternative: why not have a pre-configured set of scripts that run when the readiness/liveness/startup probes break and output the responses to your preferred logging sink, e.g. Splunk.
+In that spirit, I offer an alternative: why not have a pre-configured set of scripts that run when the readiness/liveness/startup probes fail and output the responses to your preferred logging sink, e.g. Splunk.
 
 For example, running a command to test if you can connect to AWS tells you:
 
-- cluster is still working
+- cluster + pod + container is still working
 - network policy for outbound requests are set correctly
 - NAT gateway/outbound proxy is working normally
 - AWS is not down
@@ -33,11 +33,11 @@ For example, running a command to test if you can connect to AWS tells you:
 Running another command to connect to Digicert shares the above path and only differs at the leaf. We can show by overlapping the 
 
 As Pranav Mistry says: `we as humans are not interested in technology [or processes], we're interested in information.`
-In that mode of thinking, I have a shameless plug: reach out if you'd like to go a step forward to use these hypotheses to automagically root cause incidents and create dashboards that combine fragmented information from metrics, logs and traces' backends.
+In that mode of thinking, I have a service that will automagically root cause incidents from these hypotheses with a bayesian network called BayesicInsight. This insight service is not open source currently.
 
 # Design
 
-This library is designed with a plugin system in mind. A plugin is an abstraction that can be:
+This library is designed with a plugin system in mind (called hypotheses). A hypothesis is an abstraction that can be:
 
 - pre-built plugin, e.g. `AWS-STS`
 - shell command, e.g. `curl -X autorootcause.com`
@@ -45,10 +45,12 @@ This library is designed with a plugin system in mind. A plugin is an abstractio
 
 This format is useful for two main reasons:
 
-- standardized plugins can be shared between teams within a company and between companies
+- standardized hypotheses can be shared between teams within a company and between companies
 - they can be chained to create conditionals and pipelines, letting you auto-diagnose and sometimes even auto-remediate directly in the cluster
 
-After the plugins are run, a report is generated at the end. Currently, these connectors are not built and have to instrumented by teams on their own but the goal is to send the results to Datadog, Splunk, Grafana or whatever log/metric storage you use. If you don't have a log storage, reach out, and we can set up a dashboard for you.
+After the hypotheses are run, a report is generated at the end.
+
+Currently, connectors to Datadog, Splunk, etc. are not built and have to instrumented by teams on their own but the goal is to send the results to Datadog, Splunk, Grafana or whatever log/metric storage you use.
 
 ### Pre-built Plugins
 
@@ -125,4 +127,4 @@ Add your plugin to this list once you merge it into the plugin folder.
 - aws-get-caller-identity: calls aws get caller identity and checks if the response code is 200
 - ls-file-exists: checks to see if a file was placed successfully
 - cert-expiry-check: checks the expiry of a certificate
-- file-permissions-check: matches the user given permissions to a current file 
+- file-permissions-check: matches the user given permissions to a current file

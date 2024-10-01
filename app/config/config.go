@@ -38,7 +38,7 @@ type Config struct {
 type Plugin struct {
 	Name         string        `yaml:"name"`
 	Type         PluginType    `yaml:"type"`
-	Image        string        `yaml:"image,omitempty"`
+	Module       string        `yaml:"module,omitempty"`
 	ShellScript  string        `yaml:"shell_script,omitempty"`
 	ShellFile    string        `yaml:"shell_file,omitempty"`
 	Args         []string      `yaml:"args,omitempty"`

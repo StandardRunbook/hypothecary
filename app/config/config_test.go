@@ -234,10 +234,10 @@ func TestSecurityScanning(t *testing.T) {
 		PushReportEndpoint: "http://example.com/report",
 		Plugins: []Plugin{
 			{
-				Name:  "SecurityScan",
-				Type:  ShellCommand,
-				Image: "security_scan:latest",
-				Args:  []string{"--scan-all"},
+				Name:   "SecurityScan",
+				Type:   ShellCommand,
+				Module: "security_scan:latest",
+				Args:   []string{"--scan-all"},
 				Trigger: Trigger{
 					TriggerType: []TriggerType{
 						Periodic,
@@ -279,7 +279,7 @@ const testSecurityScanning = `
 plugins:
   - name: SecurityScan
     type: command
-    image: "security_scan:latest"
+    module: "security_scan:latest"
     args:
       - "--scan-all"
     trigger:
